@@ -1,0 +1,43 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - uber_transformation
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_uber
+  retry_config: null
+  status: executed
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_uber
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: uber_transformation
+  retry_config: null
+  status: updated
+  type: transformer
+  upstream_blocks:
+  - load_uber
+  uuid: uber_transformation
+callbacks: []
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: mage_uber
+type: python
+updated_at: '2023-06-07 00:41:52'
+uuid: mage_uber
+widgets: []
