@@ -17,18 +17,34 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - export_pg
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: uber_transformation
   retry_config: null
-  status: updated
+  status: executed
   type: transformer
   upstream_blocks:
   - load_uber
   uuid: uber_transformation
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_pg
+  retry_config: null
+  status: not_executed
+  type: data_exporter
+  upstream_blocks:
+  - uber_transformation
+  uuid: export_pg
 callbacks: []
 data_integration: null
 description: null
@@ -38,6 +54,6 @@ executor_type: null
 extensions: {}
 name: mage_uber
 type: python
-updated_at: '2023-06-07 00:41:52'
+updated_at: '2023-06-07 23:33:57'
 uuid: mage_uber
 widgets: []
