@@ -18,7 +18,9 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - export_pg
+  - bar_chart_for_uber_transformation_1686378491218
+  - get_payment
+  - get_fact
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -32,19 +34,111 @@ blocks:
   uuid: uber_transformation
 - all_upstream_blocks_executed: true
   color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_table: mage_fact
+    export_write_policy: replace
+    limit: 1000
+    upstream_block_configuration:
+      uber_transformation:
+        table_name: ''
+    use_raw_sql: false
+  downstream_blocks:
+  - query
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: export_test
+  retry_config: null
+  status: executed
+  type: data_exporter
+  upstream_blocks:
+  - get_fact
+  uuid: export_test
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    data_provider_table: mage_payment
+    export_write_policy: replace
+    limit: 1000
+    upstream_block_configuration:
+      get_payment:
+        table_name: ''
+      uber_transformation:
+        table_name: ''
+    use_raw_sql: false
+  downstream_blocks:
+  - query
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: export_payment_dim
+  retry_config: null
+  status: executed
+  type: data_exporter
+  upstream_blocks:
+  - get_payment
+  uuid: export_payment_dim
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    export_write_policy: replace
+  downstream_blocks:
+  - export_payment_dim
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: get_payment
+  retry_config: null
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - uber_transformation
+  uuid: get_payment
+- all_upstream_blocks_executed: true
+  color: null
   configuration: {}
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: export_pg
+  name: get_fact
   retry_config: null
-  status: not_executed
-  type: data_exporter
+  status: executed
+  type: transformer
   upstream_blocks:
   - uber_transformation
-  uuid: export_pg
+  uuid: get_fact
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    export_write_policy: append
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: query
+  retry_config: null
+  status: executed
+  type: data_exporter
+  upstream_blocks:
+  - export_test
+  - export_payment_dim
+  uuid: query
 callbacks: []
 data_integration: null
 description: null
@@ -54,6 +148,31 @@ executor_type: null
 extensions: {}
 name: mage_uber
 type: python
-updated_at: '2023-06-07 23:33:57'
+updated_at: '2023-06-11 00:47:29'
 uuid: mage_uber
-widgets: []
+widgets:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    chart_style: vertical
+    chart_type: bar chart
+    group_by:
+    - passenger_count_id
+    metrics:
+    - aggregation: average
+      column: tip_amount
+    x: x
+    y: y
+    y_sort_order: descending
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: bar chart for uber_transformation 1686378491218
+  retry_config: null
+  status: failed
+  type: chart
+  upstream_blocks:
+  - uber_transformation
+  uuid: bar_chart_for_uber_transformation_1686378491218

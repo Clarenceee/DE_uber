@@ -21,7 +21,7 @@ def load_data_from_file(*args, **kwargs):
     # filepath = r"D:\My Project\DE_uber\Dataset\taxi+_zone_lookup.csv"
     filepath = r'D:\My Project\DE_uber\Dataset\yellow_tripdata_2022-10.parquet'
     df = pd.read_parquet(filepath)
-    df = df.head(30000)
+    df = df.head(50000)
 
     return df
 

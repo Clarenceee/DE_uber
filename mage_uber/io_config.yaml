@@ -53,11 +53,12 @@ default:
   MYSQL_PORT: 3306
   MYSQL_USER: root
   POSTGRES_CONNECT_TIMEOUT: 10
-  POSTGRES_DBNAME: postgres
+  POSTGRES_DBNAME: uber_de
   POSTGRES_SCHEMA: public # Optional
-  POSTGRES_USER: username
-  POSTGRES_PASSWORD: password
-  POSTGRES_HOST: hostname
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: Clarence2023!
+  POSTGRES_HOST: localhost
+  POSTGRES_PORT: 5432
   REDSHIFT_SCHEMA: public # Optional
   POSTGRES_PORT: 5432
   REDSHIFT_DBNAME: redshift_db_name

@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
@@ -107,7 +108,13 @@ def transform(data, *args, **kwargs):
     'store_and_fwd_flag', 'fare_amount', 'extra','mta_tax', 'tip_amount', 'tolls_amount', 'improvement_surcharge',
         'total_amount', 'congestion_surcharge', 'airport_fee']]
 
-    return fact_table
+    json_payment = payment_method_dim.to_json(orient='records')
+    json_fact = fact_table.to_json(orient='records')
+    result = {
+        'fact': json.loads(json_fact),
+        'payment': json.loads(json_payment)
+    }
+    return result
 
 
 @test
